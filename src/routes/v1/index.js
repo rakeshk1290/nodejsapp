@@ -1,19 +1,19 @@
-const express = require('express');
-const healthRoute = require('./health/health.route');
-const docsRoute = require('./docs/docs.route');
+const express = require('express')
+const healthRoute = require('./health/health.route')
+const docsRoute = require('./docs/docs.route')
 
-const router = express.Router();
+const router = express.Router()
 
 const defaultRoutes = [
   {
     path: '/check',
-    route: healthRoute,
+    route: healthRoute
   },
   {
     path: '/docs',
-    route: docsRoute,
-  },
-];
+    route: docsRoute
+  }
+]
 
 // const devRoutes = [
 //   // routes available only in development mode
@@ -24,8 +24,8 @@ const defaultRoutes = [
 // ];
 
 defaultRoutes.forEach((route) => {
-  router.use(route.path, route.route);
-});
+  router.use(route.path, route.route)
+})
 
 // /* istanbul ignore next */
 // if (config.env === 'development') {
@@ -34,4 +34,4 @@ defaultRoutes.forEach((route) => {
 //   });
 // }
 
-module.exports = router;
+module.exports = router

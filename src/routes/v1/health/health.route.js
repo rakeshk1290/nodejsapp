@@ -1,13 +1,13 @@
-const express = require('express');
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
 
 const health = (req, res) => {
-  res.send('Node works');
-};
+  res.send('Node works')
+}
 
-router.get('/health', health);
-module.exports = router;
+router.get('/health', health)
+module.exports = router
 /**
  * @swagger
  * tags
