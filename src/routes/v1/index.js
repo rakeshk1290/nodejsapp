@@ -1,6 +1,7 @@
 const express = require('express');
 const healthRoute = require('./health/health.route');
 const docsRoute = require('./docs/docs.route');
+
 const router = express.Router();
 
 const defaultRoutes = [

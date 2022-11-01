@@ -2,10 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
-
-const health = ((req, res)=>{
-    res.send("Node works")
-});
+const health = (req, res) => {
+  res.send('Node works');
+};
 
 router.get('/health', health);
 module.exports = router;
@@ -23,6 +22,6 @@ module.exports = router;
  *      summary: check health
  *      tags: [Health]
  *      responses:
- *          "200": 
+ *          "200":
  *              description: returns node health status
  */
