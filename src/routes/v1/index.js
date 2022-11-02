@@ -1,6 +1,6 @@
 const express = require('express')
-const healthRoute = require('./health/health.route')
-const docsRoute = require('./docs/docs.route')
+const healthRoute = require('./health.route')
+const docsRoute = require('./docs.route')
 
 const router = express.Router()
 
