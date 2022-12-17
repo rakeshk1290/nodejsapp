@@ -1,18 +1,26 @@
 const express = require('express')
+
 const healthRoute = require('./health.route')
+
 const docsRoute = require('./docs.route')
+
+const authRoute = require('./auth.route')
 
 const router = express.Router()
 
 const defaultRoutes = [
   {
     path: '/check',
-    route: healthRoute
+    route: healthRoute,
   },
   {
     path: '/docs',
-    route: docsRoute
-  }
+    route: docsRoute,
+  },
+  {
+    path: '/auth',
+    route: authRoute,
+  },
 ]
 
 // const devRoutes = [

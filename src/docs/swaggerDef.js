@@ -9,7 +9,7 @@ const swaggerDef = {
   },
   servers: [
     {
-      url: `https://nodejsbadge.herokuapp.com/v1`
+      url: `${process.env.SWAGGER_URL}`
     }
   ]
 }
