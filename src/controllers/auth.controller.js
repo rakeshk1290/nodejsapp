@@ -13,7 +13,7 @@ const register = async (req, res, next) => {
       lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
-      salt: ''
+      salt: '',
     })
     res.status(httpStatus.CREATED).json(result)
   } catch (e) {
@@ -22,10 +22,16 @@ const register = async (req, res, next) => {
   }
 }
 
-const login = async (req, res, next) =>{
-    
+const login = async (req, res, next) => {
+  try {
+    const result = await User.findOne({ where: { email: req.body.email, password: req.body.password } })
+    res.status(httpStatus.OK).json(result)
+  } catch (e) {
+    logger.info(e)
+    next(new ApiError(httpStatus.NOT_FOUND, e))
+  }
 }
 module.exports = {
   register,
-  login
+  login,
 }

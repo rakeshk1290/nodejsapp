@@ -1,21 +1,17 @@
 const httpStatus = require('http-status')
+const ApiError = require('../utils/ApiError')
+const Validators = require('../validators')
 
-const middleware = (schema, property) => {
-  return (req, res, next) => {
-    const { error } = schema.validate({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
-    })
-    const valid = error == null
-
-    if (valid) {
+const middleware = (validator) => {
+  if (!Object.prototype.hasOwnProperty.call(Validators, validator)) throw new Error(`'${validator}' validator is not exist`)
+  return async (req, res, next) => {
+    try {
+      const validated = await Validators[validator].validateAsync(req.body)
+      req.body = validated
       next()
-    } else {
-      const { details } = error
-      const message = details.map((i) => i.message).join(',')
-      res.status(httpStatus.UNPROCESSABLE_ENTITY).json({ error: message })
+    } catch (e) {
+      if (e.isJoi) return next(new ApiError(httpStatus.UNPROCESSABLE_ENTITY, e))
+      next(new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Unable to process request'))
     }
   }
 }

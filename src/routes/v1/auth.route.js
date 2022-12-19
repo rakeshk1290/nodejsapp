@@ -3,11 +3,9 @@ const express = require('express')
 const router = express.Router()
 
 const authController = require('../../controllers/auth.controller')
-const middleware = require('../../middlewares/validator.middleware')
+const Validator = require('../../middlewares/validator.middleware')
 
-const userSchema = require('../../validators/user.schema')
-
-router.post('/register', middleware(userSchema), authController.register)
-
+router.post('/register', Validator('register'), authController.register)
+router.post('/login', Validator('login'), authController.login)
 
 module.exports = router
