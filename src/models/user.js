@@ -3,8 +3,7 @@ const { DataTypes } = require('sequelize')
 const crypto = require('crypto')
 
 const generateEncryptedPassword = (password, salt) => {
-  console.log('password, salt', password, salt)
-  return crypto.createHash('RSA-SHA256').update(password).update(salt).digest('hex')
+  return crypto.pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString(`hex`)
 }
 
 const generateSalt = () => {
@@ -47,7 +46,7 @@ module.exports = function (sequelize, Sequalize) {
         allowNull: false,
         set(value) {
           this.setDataValue('salt', generateSalt())
-        },
+        }
       },
       role: {
         type: DataTypes.STRING,
@@ -61,7 +60,7 @@ module.exports = function (sequelize, Sequalize) {
     },
     {
       hooks: {
-        beforeCreate: (user, options) => {
+        beforeCreate: (user) => {
           if (user.getDataValue('password')) {
             user.password = generateEncryptedPassword(user.getDataValue('password'), user.salt)
           }
@@ -69,5 +68,9 @@ module.exports = function (sequelize, Sequalize) {
       },
     }
   )
+  UserSchema.prototype.validPassword = (password, hash, salt) => {
+    const hashResult = crypto.pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString(`hex`)
+    return hashResult === hash
+  }
   return UserSchema
 }

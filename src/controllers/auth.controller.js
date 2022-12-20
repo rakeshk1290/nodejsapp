@@ -1,10 +1,10 @@
 const httpStatus = require('http-status')
+const jwt = require('jsonwebtoken')
 
 const logger = require('../config/logger')
-
 const User = require('../models').users
-
 const ApiError = require('../utils/ApiError')
+const { INVALID_TOKEN } = require('../utils/constants')
 
 const register = async (req, res, next) => {
   try {
@@ -22,16 +22,31 @@ const register = async (req, res, next) => {
   }
 }
 
-const login = async (req, res, next) => {
-  try {
-    const result = await User.findOne({ where: { email: req.body.email, password: req.body.password } })
-    res.status(httpStatus.OK).json(result)
-  } catch (e) {
-    logger.info(e)
-    next(new ApiError(httpStatus.NOT_FOUND, e))
-  }
+// const login = async (req, res, next) => {
+//   try {
+//     const result = await User.findOne({ where: { email: req.body.email } })
+//     if (result.validPassword(req.body.password, result.dataValues.password, result.dataValues.salt))
+//       res.status(httpStatus.OK).json(result)
+//     else res.status(httpStatus.UNAUTHORIZED).json('Invalid')
+//   } catch (e) {
+//     logger.info(e)
+//     next(new ApiError(httpStatus.NOT_FOUND, e))
+//   }
+// }
+
+const login = (req, res, next) => {
+  res.json(req.user)
 }
+
+const profile = (req, res, next) => {
+  if (!req.user) {
+    return next(new ApiError(httpStatus.UNAUTHORIZED, INVALID_TOKEN))
+  }
+  return res.status(httpStatus.OK).json(req.user)
+}
+
 module.exports = {
   register,
   login,
+  profile,
 }
