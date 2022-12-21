@@ -2,18 +2,50 @@ const express = require('express')
 const helmet = require('helmet')
 const xss = require('xss-clean')
 const httpStatus = require('http-status')
+const passport = require('passport')
+const session = require('express-session')
+const dotenv = require('dotenv')
+
+dotenv.config()
+require('./utils/localStrategy')
+require('./utils/jwtStrategy')
 const config = require('./config/config')
 const morgan = require('./config/morgan')
 const routes = require('./routes/v1')
 const { errorConverter, errorHandler } = require('./middlewares/error')
 const ApiError = require('./utils/ApiError')
+const models = require('./models')
+const logger = require('./config/logger')
 
 const app = express()
+
+app.use(
+  express.urlencoded({
+    extended: true
+  })
+)
+
+app.use(express.json())
+
+app.use(session({ resave: false, saveUninitialized: true, secret: process.env.SESSION_SECRET }))
+
+app.use(passport.initialize())
+
+app.use(passport.session())
 
 if (config.env !== 'test') {
   app.use(morgan.successHandler)
   app.use(morgan.errorHandler)
 }
+
+models.sequelize
+  .sync()
+  .then(function () {
+    logger.info('connected to database')
+  })
+  .catch(function (err) {
+    logger.info(err)
+  })
 
 // set security HTTP headers
 app.use(helmet())

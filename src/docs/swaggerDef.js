@@ -1,5 +1,4 @@
 const { version } = require('../../package.json')
-const config = require('../config/config')
 
 const swaggerDef = {
   openapi: '3.0.0',
@@ -9,7 +8,7 @@ const swaggerDef = {
   },
   servers: [
     {
-      url: `https://nodejsbadge.herokuapp.com/v1`
+      url: `${process.env.SWAGGER_URL}`
     }
   ]
 }

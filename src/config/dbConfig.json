@@ -1,0 +1,10 @@
+{
+    "development": {
+        "username": "root",
+        "password": null,
+        "database": "rbacDB",
+        "host": "localhost",
+        "dialect": "sqlite",
+        "storage": "./data/rbacDB.sqlite"
+    }
+}
