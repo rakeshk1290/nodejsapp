@@ -14,6 +14,7 @@ const routes = require('./routes/v1')
 const { errorConverter, errorHandler } = require('./middlewares/error')
 const ApiError = require('./utils/ApiError')
 const models = require('./models')
+const logger = require('./config/logger')
 
 const app = express()
 
@@ -39,10 +40,10 @@ if (config.env !== 'test') {
 models.sequelize
   .sync()
   .then(function () {
-    console.log('connected to database')
+    logger.info('connected to database')
   })
   .catch(function (err) {
-    console.log(err)
+    logger.info(err)
   })
 
 // set security HTTP headers

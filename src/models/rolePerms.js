@@ -7,17 +7,17 @@ module.exports = function (sequelize, Sequalize) {
       allowNull: false,
       references: {
         model: 'roles', // Can be both a string representing the table name or a Sequelize model
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     permID: {
       type: DataTypes.STRING,
       allowNull: false,
-      references:{
+      references: {
         model: 'permissions',
-        key: 'id'
-      }
-    }
+        key: 'id',
+      },
+    },
   })
   return rolePermsSchema
 }

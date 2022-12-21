@@ -46,7 +46,7 @@ module.exports = function (sequelize, Sequalize) {
         allowNull: false,
         set(value) {
           this.setDataValue('salt', generateSalt())
-        }
+        },
       },
       role: {
         type: DataTypes.STRING,

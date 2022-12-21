@@ -10,8 +10,8 @@ module.exports = function (sequelize, Sequalize) {
     roleName: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
-    }
+      unique: true,
+    },
   })
   return roleSchema
 }
