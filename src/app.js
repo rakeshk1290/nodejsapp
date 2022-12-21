@@ -20,7 +20,7 @@ const app = express()
 
 app.use(
   express.urlencoded({
-    extended: true,
+    extended: true
   })
 )
 

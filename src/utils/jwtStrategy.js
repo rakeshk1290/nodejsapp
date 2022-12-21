@@ -1,15 +1,13 @@
-const httpStatus = require('http-status')
 const JwtStrategy = require('passport-jwt').Strategy
 const { ExtractJwt } = require('passport-jwt')
 
 const passport = require('passport')
 
-const ApiError = require('./ApiError')
 const User = require('../models').users
 // JWT strategy
 const options = {
   jwtFromRequest: ExtractJwt.fromHeader('x-auth-token'),
-  secretOrKey: process.env.JWT_SECRET,
+  secretOrKey: process.env.JWT_SECRET
 }
 const jwtLogin = new JwtStrategy(options, async (payload, done) => {
   try {

@@ -1,17 +1,17 @@
 const { DataTypes } = require('sequelize')
 
-module.exports = function (sequelize, Sequalize) {
+module.exports = function (sequelize) {
   const roleSchema = sequelize.define('roles', {
     id: {
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     },
     roleName: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-    },
+      unique: true
+    }
   })
   return roleSchema
 }

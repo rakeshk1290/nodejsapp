@@ -9,7 +9,7 @@ const passportLogin = new LocalStrategy(
     usernameField: 'email',
     passwordField: 'password',
     session: false,
-    passReqToCallback: true,
+    passReqToCallback: true
   },
   async (req, email, password, done) => {
     try {

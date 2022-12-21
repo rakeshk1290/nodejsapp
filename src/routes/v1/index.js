@@ -10,20 +10,20 @@ const router = express.Router()
 const defaultRoutes = [
   {
     path: '/check',
-    route: healthRoute,
+    route: healthRoute
   },
   {
     path: '/docs',
-    route: docsRoute,
+    route: docsRoute
   },
   {
     path: '/auth',
-    route: authRoute,
+    route: authRoute
   },
   {
     path: '/user',
-    route: userRoute,
-  },
+    route: userRoute
+  }
 ]
 
 // const devRoutes = [

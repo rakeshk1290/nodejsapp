@@ -1,23 +1,23 @@
 const { DataTypes } = require('sequelize')
 
-module.exports = function (sequelize, Sequalize) {
+module.exports = function (sequelize) {
   const rolePermsSchema = sequelize.define('rolePerms', {
     userID: {
       type: DataTypes.NUMBER,
       allowNull: false,
       references: {
         model: 'users', // Can be both a string representing the table name or a Sequelize model
-        key: 'id',
-      },
+        key: 'id'
+      }
     },
     roleID: {
       type: DataTypes.NUMBER,
       allowNull: false,
       references: {
         model: 'roles',
-        key: 'id',
-      },
-    },
+        key: 'id'
+      }
+    }
   })
   return rolePermsSchema
 }

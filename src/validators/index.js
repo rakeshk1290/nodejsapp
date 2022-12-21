@@ -5,5 +5,5 @@ const userID = require('./user.id.validator')
 module.exports = {
   register,
   login,
-  userID,
+  userID
 }

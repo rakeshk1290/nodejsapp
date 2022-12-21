@@ -13,7 +13,7 @@ const register = async (req, res, next) => {
       lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
-      salt: '',
+      salt: ''
     })
     res.status(httpStatus.CREATED).json(result)
   } catch (e) {
@@ -38,7 +38,7 @@ const login = (req, res) => {
   const token = jwt.sign(
     {
       expiresIn: '12h',
-      ...req.user,
+      ...req.user
     },
     process.env.JWT_SECRET
   )
@@ -56,5 +56,5 @@ const profile = (req, res, next) => {
 module.exports = {
   register,
   login,
-  profile,
+  profile
 }
