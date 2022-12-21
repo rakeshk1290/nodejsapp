@@ -21,7 +21,9 @@ const passportLogin = new LocalStrategy(
       if (!user.validPassword(password, user.dataValues.password, user.dataValues.salt)) {
         return done(null, false, WRONG_PASSWORD)
       }
-      return done(null, user)
+      delete user.dataValues.password
+      delete user.dataValues.salt
+      return done(null, user.dataValues)
     } catch (err) {
       return done(err)
     }

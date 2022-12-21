@@ -6,6 +6,7 @@ const router = express.Router()
 const authController = require('../../controllers/auth.controller')
 const Validator = require('../../middlewares/validator.middleware')
 const passportLocalAuth = require('../../middlewares/passport.middleware')
+const jwtAuth = require('../../middlewares/jwt.middleware')
 
 router.post('/register', Validator('register'), authController.register)
 
@@ -13,6 +14,6 @@ router.post('/register', Validator('register'), authController.register)
 
 router.post('/login', Validator('login'), passportLocalAuth, authController.login)
 
-router.get('/profile', ensureLogIn(), authController.profile)
+router.get('/profile', jwtAuth, authController.profile)
 
 module.exports = router

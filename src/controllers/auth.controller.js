@@ -34,8 +34,16 @@ const register = async (req, res, next) => {
 //   }
 // }
 
-const login = (req, res, next) => {
-  res.json(req.user)
+const login = (req, res) => {
+  const token = jwt.sign(
+    {
+      expiresIn: '12h',
+      ...req.user,
+    },
+    process.env.JWT_SECRET
+  )
+  const { user } = req
+  res.json({ user, token })
 }
 
 const profile = (req, res, next) => {
