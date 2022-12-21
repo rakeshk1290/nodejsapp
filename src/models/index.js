@@ -15,6 +15,7 @@ fs.readdirSync(__dirname)
     return file.indexOf('.') !== 0 && file !== 'index.js'
   })
   .forEach(function (file) {
+    // eslint-disable-next-line security/detect-non-literal-require, global-require
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
     db[model.name] = model
   })
