@@ -4,7 +4,7 @@ const Sequelize = require('sequelize')
 
 const env = process.env.NODE_ENV || 'development'
 const configPath = path.join(__dirname, '..', 'config', 'dbConfig.json')
-// eslint-disable-next-line import/no-dynamic-require
+// eslint-disable-next-line
 const config = require(configPath)[env]
 const sequelize = new Sequelize(config.database, config.username, config.password, config)
 
@@ -13,7 +13,7 @@ const files = fs.readdirSync(__dirname).filter((file) => file.indexOf('.') !== 0
 
 files.forEach((file) => {
   const filePath = path.join(__dirname, file)
-  // eslint-disable-next-line import/no-dynamic-require, global-require
+  // eslint-disable-next-line
   const model = file ? require(filePath)(sequelize) : ''
   db[model.name] = model
 })
