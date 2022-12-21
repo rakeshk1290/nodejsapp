@@ -2,11 +2,11 @@ const httpStatus = require('http-status')
 const ApiError = require('../utils/ApiError')
 const Validators = require('../validators')
 
-const middleware = (validator) => {
+const middleware = (validator, params = false) => {
   if (!Object.prototype.hasOwnProperty.call(Validators, validator)) throw new Error(`'${validator}' validator is not exist`)
   return async (req, res, next) => {
     try {
-      const validated = await Validators[validator].validateAsync(req.body)
+      const validated = await Validators[validator].validateAsync(params ? req.params : req.body)
       req.body = validated
       next()
     } catch (e) {

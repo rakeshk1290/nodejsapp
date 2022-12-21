@@ -2,3 +2,7 @@ components:
   schemas:
     Health:
       type: string
+    Auth:
+      type: string
+    User:
+      type: string

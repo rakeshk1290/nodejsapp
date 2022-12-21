@@ -18,7 +18,7 @@ module.exports = router
 /**
  * @swagger
  * /check/health:
- *   get:
+ *    get:
  *     summary: Get node health
  *     tags: [Health]
  *     responses:
